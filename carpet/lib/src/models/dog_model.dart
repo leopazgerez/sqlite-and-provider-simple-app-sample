@@ -8,9 +8,13 @@ class DogModel{
    DogModel({ this.id, this.age, this.name
   });
 
+   DogModel.fromJson(Map<String, dynamic> result)
+        : id = result['id'],
+          name = result['name'],
+          age = result['age'];
   // Convert a Dog into a Map. The keys must correspond to the names of the
   // columns in the database.
-  Map<String, dynamic> dogTableFields() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,

@@ -1,3 +1,4 @@
+import 'package:carpet/src/data_access/db.dart';
 import 'package:carpet/src/pages/list_dog_page.dart';
 import 'package:carpet/src/pages/load_dog_page.dart';
 import 'package:carpet/src/providers/list_dog_model.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  DogsDataBase.instance.dogsList();
   runApp(const MyApp());
 }
 

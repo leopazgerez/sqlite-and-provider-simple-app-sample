@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../databases/db.dart';
 import '../models/dog_model.dart';
 import '../providers/list_dog_model.dart';
 
@@ -13,14 +11,18 @@ class ListDogPage extends StatefulWidget {
 }
 
 class _ListDogPageState extends State<ListDogPage> {
-  DogsDataBase dataBase = DogsDataBase.instance;
   List<DogModel> dogs = [];
 //  Este funcion fue para cuando no utilizaba provider
-  _onTap(DogModel dog) {
-    setState(() {
-      dogs.add(dog);
-    });
-    setState(() {});
+//   _onTap(DogModel dog) {
+//     setState(() {
+//       dogs.add(dog);
+//     });
+//     setState(() {});
+//   }
+  @override
+  void initState  () {
+    // TODO: implement initState
+    super.initState();
   }
 
   void onPressed() {

@@ -21,19 +21,20 @@ class DogsDataBase {
 Future<Database> _openDataBase(String filePath) async {
   final dataBasePath = await getDatabasesPath();
   final path = join(dataBasePath, filePath);
+
   return await openDatabase(path, version: 1, onCreate: _createDataBase);
 }
 
 Future _createDataBase(Database dataBase, int version) async{
     await dataBase.execute(
-        "CREATE TABLE Dogs ("
-            "id INTEGER PRIMARY KEY, "
-            "name TEXT, "
-            "age INTEGER )");
+        'CREATE TABLE Dogs ('
+            'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+            'name TEXT, '
+            'age INTEGER )');
 }
 Future<void> insertDog(DogModel dog) async {
     final dataBase = await instance.database;
-    await dataBase!.insert('Dogs', dog.dogTableFields(),
+    await dataBase!.insert('Dogs', dog.toJson(),
     conflictAlgorithm: ConflictAlgorithm.replace);
 }
 
@@ -43,7 +44,7 @@ Future deleteDog(int id) async {
 }
 Future updateDog(DogModel dog) async {
   final dataBase = await instance.database;
-  return dataBase!.update('Dogs', dog.dogTableFields(), where: 'id = ?',whereArgs: [dog.id]);
+  return dataBase!.update('Dogs', dog.toJson(), where: 'id = ?',whereArgs: [dog.id]);
 }
 
 Future<List<DogModel>> dogsList() async {
