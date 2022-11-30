@@ -1,3 +1,4 @@
+import 'package:carpet/src/data_access/db.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/dog_model.dart';
@@ -11,7 +12,9 @@ class ListDogPage extends StatefulWidget {
 }
 
 class _ListDogPageState extends State<ListDogPage> {
-  List<DogModel> dogs = [];
+  DogsDataBase dog = DogsDataBase.instance;
+  List<DogModel> dogsList = [];
+
 //  Este funcion fue para cuando no utilizaba provider
 //   _onTap(DogModel dog) {
 //     setState(() {
@@ -20,10 +23,24 @@ class _ListDogPageState extends State<ListDogPage> {
 //     setState(() {});
 //   }
   @override
-  void initState  () {
-    // TODO: implement initState
+  void initState() {    // TODO: implement initState
     super.initState();
+    dogListUpdated();
   }
+  Future dogListUpdated() async {
+    dogsList = await dog.dogsList();
+    setState(() {
+      dogsList;
+    });
+  }
+  // Future <List<DogModel>> dogList() async {
+  //   List<DogModel> listDog = await DogsDataBase.instance.dogsList();
+  //   for(int dog = 0 ; dog <= listDog!.length; dog++){
+  //     dogs.add(listDog.elementAt(dog));
+  //   }
+  //   print('Lista de la base de dato : $listDog');
+  //   return listDog;
+  // }
 
   void onPressed() {
     Navigator.pushReplacementNamed(
@@ -32,7 +49,7 @@ class _ListDogPageState extends State<ListDogPage> {
 
   @override
   Widget build(BuildContext context) {
-    dogs = context.read<ListDogModel>().dogs;
+    // dogs = context.read<ListDogModel>().dogs;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Perros"),
@@ -48,10 +65,10 @@ class _ListDogPageState extends State<ListDogPage> {
 
   Widget _list() {
     return ListView.builder(
-        itemCount: dogs.length,
+        itemCount: dogsList.length,
         itemBuilder: (context, i) => ListTile(
-              title: Text('${dogs[i].name}'),
-              subtitle: Text('${dogs[i].age}'),
+              title: Text('${dogsList[i].name}'),
+              subtitle: Text('${dogsList[i].age}'),
             ));
   }
 }

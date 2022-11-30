@@ -5,8 +5,9 @@ import 'package:carpet/src/providers/list_dog_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  DogsDataBase.instance.dogsList();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DogsDataBase.instance.database;
   runApp(const MyApp());
 }
 
